@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#050608">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <meta name="description" content="Freshers 2026 — Diploma Engineering, All Branches. Usha Martin University Campus.">
 <title>FRESHERS 2026 — Diploma Engineering</title>
 <style>
@@ -135,7 +136,7 @@ footer{border-top:1px solid var(--line);padding:45px 0;color:#677281;font-size:1
 <div class="price"><span>Final payable</span><strong id="amount">₹300</strong></div>
 <div class="notice">After payment, you will upload the payment screenshot. Your registration will remain <b>PENDING</b> until an organizer verifies the payment.</div>
 <button type="button" class="btn primary" onclick="showQR()">SHOW PAYMENT QR</button>
-<div class="qr-box" id="qrBox"><div class="qr-label">Scan with any UPI app</div><img id="qrImage" src="assets/upi-300.png" alt="UPI payment QR"><div class="qr-label" id="qrText">₹300 payment QR</div><label style="display:block;text-align:left;margin-top:12px">Payment Screenshot<input type="file" accept="image/*"></label></div>
+<div class="qr-box" id="qrBox"><div class="qr-label">Scan with any UPI app</div><div id="qrImage" style="display:flex;justify-content:center;background:#fff;border-radius:10px;padding:12px"></div><div class="qr-label" id="qrText">₹300 payment QR</div><div class="qr-label">UPI ID: nikhilanand11856@okicici</div><label style="display:block;text-align:left;margin-top:12px">Payment Screenshot<input type="file" accept="image/*"></label></div>
 <button type="button" class="btn" onclick="demoSubmit()">SUBMIT PAYMENT FOR VERIFICATION</button>
 </form></div></div>
 
@@ -149,7 +150,7 @@ function openModal(id){document.getElementById(id).classList.add('open')}
 function closeModal(id){document.getElementById(id).classList.remove('open')}
 document.querySelectorAll('.modal').forEach(m=>m.addEventListener('click',e=>{if(e.target===m)m.classList.remove('open')}));
 function applyCoupon(){const c=document.getElementById('coupon').value.trim().toUpperCase();const msg=document.getElementById('couponMsg');if(c==='TEST50'){finalAmount=250;msg.textContent='TEST50 applied — ₹50 discount';}else if(!c){finalAmount=300;msg.textContent='';}else{finalAmount=300;msg.textContent='Coupon not recognised in frontend demo';msg.style.color='#ff9d9d'}document.getElementById('amount').textContent='₹'+finalAmount}
-function showQR(){document.getElementById('qrBox').classList.add('show');const img=document.getElementById('qrImage');img.src=finalAmount===250?'assets/upi-250.png':'assets/upi-300.png';document.getElementById('qrText').textContent='₹'+finalAmount+' payment QR'}
+function showQR(){document.getElementById('qrBox').classList.add('show');const box=document.getElementById('qrImage');box.innerHTML='';const upi='upi://pay?pa=nikhilanand11856@okicici&pn=NIKHIL%20ANAND&am='+finalAmount+'&cu=INR';new QRCode(box,{text:upi,width:270,height:270,colorDark:'#111111',colorLight:'#ffffff',correctLevel:QRCode.CorrectLevel.M});document.getElementById('qrText').textContent='₹'+finalAmount+' payment QR'}
 function demoSubmit(){alert('Frontend demo complete. Supabase payment submission will be connected next.');}
 function demoRetrieve(e){e.preventDefault();alert('Pass retrieval will be connected to Supabase after the frontend is approved.');}
 </script>
